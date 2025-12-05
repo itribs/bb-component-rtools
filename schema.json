@@ -5,7 +5,7 @@
     "name": "bb-component-rtools",
     "friendlyName": "RTools",
     "description": "A Budibase plugin containing multiple composite components",
-    "icon": "Text",
+    "icon": "Fast",
     "hasChildren": true,
     "styles": ["padding", "size", "background", "border"],
     "settings": [
