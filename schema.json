@@ -1,0 +1,242 @@
+{
+  "type": "component",
+  "metadata": {},
+  "schema": {
+    "name": "bb-component-rtools",
+    "friendlyName": "RTools",
+    "description": "A Budibase plugin containing multiple composite components",
+    "icon": "Text",
+    "hasChildren": true,
+    "styles": ["padding", "size", "background", "border"],
+    "settings": [
+      {
+        "type": "select",
+        "key": "componentType",
+        "label": "Type",
+        "options": [
+          { "label": "Binding Provider", "value": "bindingProvider" },
+          { "label": "Binding", "value": "binding" },
+          { "label": "Iterator", "value": "iterator" },
+          { "label": "Tabs", "value": "tabs" },
+          { "label": "Tab Container", "value": "tabContainer" }
+        ]
+      },
+      {
+        "section": true,
+        "name": "Tabs",
+        "dependsOn": {
+          "setting": "componentType",
+          "value": "tabs"
+        },
+        "settings": [
+          {
+            "type": "text",
+            "key": "activeTabValue",
+            "label": "Value"
+          },
+          {
+            "type": "select",
+            "label": "Align",
+            "key": "tabsAlign",
+            "options": [
+              {
+                "label": "Left",
+                "value": "flex-start"
+              },
+              {
+                "label": "Center",
+                "value": "center"
+              },
+              {
+                "label": "Right",
+                "value": "flex-end"
+              }
+            ],
+            "defaultValue": "flex-start"
+          },
+          {
+            "type": "color",
+            "key": "tabColor",
+            "label": "Color",
+            "defaultValue": "#555555"
+          },
+          {
+            "type": "color",
+            "key": "activeTabColor",
+            "label": "Active Color",
+            "defaultValue": "#007aff"
+          },
+          {
+            "type": "event",
+            "key": "tabsChange",
+            "label": "On Changed",
+            "context": [
+              {
+                "label": "Current Tab Value",
+                "key": "currentTabValue",
+                "type": "string"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "section": true,
+        "name": "Tab Container",
+        "dependsOn": {
+          "setting": "componentType",
+          "value": "tabContainer"
+        },
+        "settings": [
+          {
+            "type": "phosphorIcon",
+            "key": "tabIcon",
+            "label": "Icon"
+          },
+          {
+            "type": "text",
+            "key": "tabLabel",
+            "label": "Label"
+          },
+          {
+            "type": "plainText",
+            "key": "tabValue",
+            "label": "Value"
+          }
+        ]
+      },
+      {
+        "section": true,
+        "name": "Bingding Provider",
+        "dependsOn": {
+          "setting": "componentType",
+          "value": "bindingProvider"
+        },
+        "settings": [
+          {
+            "type": "boolean",
+            "key": "display",
+            "label": "Display",
+            "defaultValue": true
+          }
+        ]
+      },
+      {
+        "section": true,
+        "name": "Bingding",
+        "dependsOn": {
+          "setting": "componentType",
+          "value": "binding"
+        },
+        "settings": [
+          {
+            "type": "plainText",
+            "key": "bindingName",
+            "label": "Name",
+            "placeholder": "Name of the binding"
+          },
+          {
+            "type": "text",
+            "key": "bindingValue",
+            "label": "Value",
+            "placeholder": "Value of the binding"
+          }
+        ]
+      },
+      {
+        "section": true,
+        "name": "Iterator",
+        "dependsOn": {
+          "setting": "componentType",
+          "value": "iterator"
+        },
+        "settings": [
+          {
+            "type": "text",
+            "key": "iteratorIndex",
+            "label": "Index"
+          },
+          {
+            "type": "select",
+            "key": "iteratorSource",
+            "label": "Source",
+            "options": [
+              { "label": "Data Provider", "value": "dataProvider" },
+              { "label": "Data Source", "value": "dataSource" }
+            ]
+          },
+          {
+            "type": "dataProvider",
+            "key": "iteratorDataProvider",
+            "label": "Data Provider",
+            "dependsOn": {
+              "setting": "iteratorSource",
+              "value": "dataProvider"
+            }
+          },
+          {
+            "type": "dataSource",
+            "key": "iteratorDataSource",
+            "label": "Data Source",
+            "dependsOn": {
+              "setting": "iteratorSource",
+              "value": "dataSource"
+            }
+          },
+          {
+            "type": "event",
+            "key": "iteration",
+            "label": "On Iteration",
+            "context": [
+              {
+                "label": "Current Iteration Index",
+                "key": "currentIterationIndex",
+                "type": "number"
+              },
+              {
+                "label": "Current Iteration Item",
+                "key": "currentIterationItem"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "context": [
+      {
+        "type": "static",
+        "values": [
+          {
+            "label": "Bindings",
+            "key": "bindings",
+            "type": "object"
+          }
+        ]
+      },
+      {
+        "type": "static",
+        "values": [
+          {
+            "label": "Active Tab Value",
+            "key": "activeTabValue",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "type": "static",
+        "values": [
+          {
+            "label": "Current Iterate Index",
+            "key": "currentIterateIndex",
+            "type": "nubmer"
+          },
+          {
+            "label": "Current Iterate Item",
+            "key": "currentIterateItem"
+          }
+        ]
+      }
+    ]
+  }
+}
