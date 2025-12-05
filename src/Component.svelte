@@ -2,9 +2,10 @@
     import { getContext } from "svelte";
     import BindingProvider from "./BindingProvider.svelte";
     import Binding from "./Binding.svelte";
-    import Iterator from "./Iterator.svelte";
     import Tabs from "./Tabs.svelte";
     import TabContainer from "./TabContainer.svelte";
+    import Iterator from "./Iterator.svelte";
+    import Poller from "./Poller.svelte";
 
     const { styleable } = getContext("sdk");
     const component = getContext("component");
@@ -14,9 +15,10 @@
     const componentMap = {
         bindingProvider: BindingProvider,
         binding: Binding,
-        iterator: Iterator,
         tabs: Tabs,
         tabContainer: TabContainer,
+        iterator: Iterator,
+        poller: Poller,
     };
 
     $: currentComponent = componentType ? componentMap[componentType] : null;

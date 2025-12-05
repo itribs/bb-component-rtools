@@ -16,9 +16,10 @@
         "options": [
           { "label": "Binding Provider", "value": "bindingProvider" },
           { "label": "Binding", "value": "binding" },
-          { "label": "Iterator", "value": "iterator" },
           { "label": "Tabs", "value": "tabs" },
-          { "label": "Tab Container", "value": "tabContainer" }
+          { "label": "Tab Container", "value": "tabContainer" },
+          { "label": "Iterator", "value": "iterator" },
+          { "label": "Poller", "value": "poller" }
         ]
       },
       {
@@ -198,6 +199,31 @@
                 "key": "currentIterationItem"
               }
             ]
+          }
+        ]
+      },
+      {
+        "section": true,
+        "name": "Poller",
+        "dependsOn": {
+          "setting": "componentType",
+          "value": "poller"
+        },
+        "settings": [
+          {
+            "type": "text",
+            "key": "pollerSeed",
+            "label": "Seed"
+          },
+          {
+            "type": "number",
+            "key": "pollerInterval",
+            "label": "Interval (in seconds)"
+          },
+          {
+            "type": "event",
+            "key": "pollerTrigger",
+            "label": "On Interval"
           }
         ]
       }
