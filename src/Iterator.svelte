@@ -72,7 +72,6 @@
             });
     }
 
-    let errMsg;
     $: debugItems = (() => {
         const items = [];
         items.push({
