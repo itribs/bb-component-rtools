@@ -11,23 +11,34 @@
     export let tabValue;
 
     let activeValue;
+    let destroyOnDeactive;
 
-    const unsubscribe = tabs?.activeValue.subscribe((value) => {
+    const unsubscribeActiveValue = tabs?.activeValue.subscribe((value) => {
         activeValue = value;
     });
+
+    const unsubscribeDestroyOnDeactive = tabs?.destroyOnDeactive.subscribe(
+        (value) => {
+            destroyOnDeactive = value;
+        },
+    );
 
     tabs?.register(id, tabIcon, tabLabel, tabValue);
 
     $: tabs?.register(id, tabIcon, tabLabel, tabValue);
 
     onDestroy(() => {
-        unsubscribe?.();
+        unsubscribeActiveValue?.();
+        unsubscribeDestroyOnDeactive?.();
         tabs?.unregister(id);
     });
 </script>
 
-{#if tabValue === activeValue}
-    <div use:styleable={$component.styles}>
+{#if tabValue === activeValue || !destroyOnDeactive}
+    <div
+        use:styleable={$component.styles}
+        class:hidden={tabValue !== activeValue && !destroyOnDeactive}
+    >
         {#if !tabs}
             <div class="error">
                 Tab container component need to be wrapped in a [Tabs]
@@ -46,5 +57,8 @@
         );
         font-size: var(--spectrum-global-dimension-font-size-75);
         font-weight: bold;
+    }
+    .hidden {
+        display: none !important;
     }
 </style>

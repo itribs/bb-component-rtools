@@ -5,6 +5,7 @@
     const component = getContext("component");
 
     export let activeTabValue;
+    export let tabDestroyOnDeactive;
     export let tabColor = "#555555";
     export let activeTabColor = "#007aff";
     export let tabsAlign = "flex-start";
@@ -13,10 +14,10 @@
     const tabs = writable([]);
 
     const activeValue = writable(activeTabValue);
+    const destroyOnDeactive = writable(tabDestroyOnDeactive);
 
-    $: {
-        activeValue.set(activeTabValue);
-    }
+    $: activeValue.set(activeTabValue);
+    $: destroyOnDeactive.set(tabDestroyOnDeactive);
 
     function select(value) {
         activeValue.set(value);
@@ -47,7 +48,12 @@
         activeTabValue,
     };
 
-    setContext("tabs", { register, unregister, activeValue });
+    setContext("tabs", {
+        register,
+        unregister,
+        activeValue,
+        destroyOnDeactive,
+    });
 </script>
 
 <div use:styleable={$component.styles}>

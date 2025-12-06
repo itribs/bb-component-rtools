@@ -1,8 +1,9 @@
 <script>
     import { getContext } from "svelte";
-    const { styleable, Provider } = getContext("sdk");
+    const { styleable, builderStore, Provider } = getContext("sdk");
     const component = getContext("component");
 
+    export let showDebugInProd;
     export let iteratorSource;
     export let iteratorDataProvider;
     export let iteratorDataSource;
@@ -48,6 +49,36 @@
     }
 </script>
 
-<div use:styleable={$component.styles}>
-    <Provider data={dataContext}></Provider>
-</div>
+<Provider data={dataContext}></Provider>
+{#if $builderStore.inBuilder || showDebugInProd}
+    <div use:styleable={$component.styles}>
+        <h3>Current Index</h3>
+        <span class="value">
+            {currentIndex}
+        </span>
+        <h3>Current Value</h3>
+        <div class="value">
+            {#each data?.toString()?.split("\n") || [] as line}
+                {line}<br />
+            {/each}
+        </div>
+        <p>Trigger an action when the index is updated.</p>
+        {#if !showDebugInProd}
+            <p>
+                <i class="ph ph-info" /> This message will not be displayed in the
+                production environment.
+            </p>
+        {/if}
+    </div>
+{/if}
+
+<style>
+    .value {
+        max-height: 100px;
+        overflow-y: auto;
+        background: #eee;
+        border-radius: 8px;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+    }
+</style>

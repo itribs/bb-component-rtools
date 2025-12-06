@@ -1,47 +1,39 @@
 <script>
     import { getContext, onDestroy } from "svelte";
-    const { styleable, builderStore } = getContext("sdk");
+    const { styleable, builderStore, Provider } = getContext("sdk");
     const component = getContext("component");
-    const binding_provider = getContext("binding-provider");
 
-    export let bindingName;
+    export let showDebugInProd;
     export let bindingValue;
-    let bindingOldName = bindingName;
 
-    binding_provider?.register(bindingName, bindingValue);
-
-    $: binding_provider?.register(bindingName, bindingValue);
-
-    $: {
-        if (bindingName !== bindingOldName) {
-            binding_provider?.unregister(bindingOldName);
-            bindingOldName = bindingName;
-        }
-    }
-
-    onDestroy(() => {
-        binding_provider?.unregister(bindingName);
-    });
+    $: dataContext = {
+        bindingValue,
+    };
 </script>
 
-<div use:styleable={$component.styles}>
-    {#if !binding_provider}
-        <div class="error">
-            Binding component need to be wrapped in a [Binding Provider]
-        </div>
-    {:else if bindingName && $builderStore.inBuilder}
-        <div class="placeholder">
-            [{bindingName}]
-        </div>
-    {:else}
-        <div class="placeholder">Please set a name</div>
-    {/if}
-</div>
+<Provider data={dataContext}></Provider>
+{#if $builderStore.inBuilder || showDebugInProd}
+    <div use:styleable={$component.styles}>
+        {#if bindingValue}
+            <h3>Current Value</h3>
+            <div class="value">
+                {#each bindingValue.toString()?.split("\n") || [] as line}
+                    {line}<br />
+                {/each}
+            </div>
+            {#if !showDebugInProd}
+                <p>
+                    <i class="ph ph-info" /> This message will not be displayed in
+                    the production environment.
+                </p>
+            {/if}
+        {:else}
+            <div class="error">Please set a value</div>
+        {/if}
+    </div>
+{/if}
 
 <style>
-    .placeholder {
-        color: var(--spectrum-global-color-gray-600);
-    }
     .error {
         color: var(
             --spectrum-semantic-negative-color-default,
@@ -49,5 +41,13 @@
         );
         font-size: var(--spectrum-global-dimension-font-size-75);
         font-weight: bold;
+    }
+    .value {
+        max-height: 100px;
+        overflow-y: auto;
+        background: #eee;
+        border-radius: 8px;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
     }
 </style>

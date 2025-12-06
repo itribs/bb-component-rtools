@@ -14,13 +14,18 @@
         "key": "componentType",
         "label": "Type",
         "options": [
-          { "label": "Binding Provider", "value": "bindingProvider" },
-          { "label": "Binding", "value": "binding" },
           { "label": "Tabs", "value": "tabs" },
           { "label": "Tab Container", "value": "tabContainer" },
           { "label": "Iterator", "value": "iterator" },
-          { "label": "Poller", "value": "poller" }
-        ]
+          { "label": "Poller", "value": "poller" },
+          { "label": "Binding", "value": "binding" }
+        ],
+        "defaultValue": "binding"
+      },
+      {
+        "type": "boolean",
+        "key": "showDebugInProd",
+        "label": "Show Debug In Prod"
       },
       {
         "section": true,
@@ -34,6 +39,11 @@
             "type": "text",
             "key": "activeTabValue",
             "label": "Value"
+          },
+          {
+            "type": "boolean",
+            "key": "tabDestroyOnDeactive",
+            "label": "Destroy On Deactive"
           },
           {
             "type": "select",
@@ -108,34 +118,12 @@
       },
       {
         "section": true,
-        "name": "Bingding Provider",
-        "dependsOn": {
-          "setting": "componentType",
-          "value": "bindingProvider"
-        },
-        "settings": [
-          {
-            "type": "boolean",
-            "key": "display",
-            "label": "Display",
-            "defaultValue": true
-          }
-        ]
-      },
-      {
-        "section": true,
         "name": "Bingding",
         "dependsOn": {
           "setting": "componentType",
           "value": "binding"
         },
         "settings": [
-          {
-            "type": "plainText",
-            "key": "bindingName",
-            "label": "Name",
-            "placeholder": "Name of the binding"
-          },
           {
             "type": "text",
             "key": "bindingValue",
@@ -164,7 +152,8 @@
             "options": [
               { "label": "Data Provider", "value": "dataProvider" },
               { "label": "Data Source", "value": "dataSource" }
-            ]
+            ],
+            "defaultValue": "dataSource"
           },
           {
             "type": "dataProvider",
@@ -233,9 +222,8 @@
         "type": "static",
         "values": [
           {
-            "label": "Bindings",
-            "key": "bindings",
-            "type": "object"
+            "label": "Binding Value",
+            "key": "bindingValue"
           }
         ]
       },
