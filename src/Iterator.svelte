@@ -36,6 +36,18 @@
         }
     })();
 
+    function isIndexable(obj) {
+        if (typeof obj === "string") return true;
+        if (obj == null) return false;
+        if (typeof obj !== "object" && typeof obj !== "function") return false;
+        const length = obj.length;
+        return (
+            typeof length === "number" &&
+            length >= 0 &&
+            Number.isInteger(length)
+        );
+    }
+
     function indexChanged(index) {
         currentIndex = parseInt(index, 10);
         if (!data || isNaN(currentIndex) || currentIndex < 0) {
@@ -43,6 +55,11 @@
             return;
         } else if (currentIndex >= data.length) {
             currentIndex = data.length - 1;
+            return;
+        }
+
+        if (!isIndexable(data)) {
+            currentIndex = -1;
             return;
         }
 
@@ -63,10 +80,16 @@
             value: currentIndex,
         });
         if (data) {
-            items.push({
-                label: "Current Value",
-                value: data,
-            });
+            if (isIndexable(data)) {
+                items.push({
+                    label: "Current Value",
+                    value: data,
+                });
+            } else {
+                items.push({
+                    message: "The data is not indexable",
+                });
+            }
         } else {
             items.push({
                 message: "Please set the data",
