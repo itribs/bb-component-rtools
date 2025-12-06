@@ -10,6 +10,7 @@
 
     let currentIndex = -1;
     let currentItem = null;
+    let data;
 
     $: indexChanged(iteratorIndex);
 
@@ -18,15 +19,21 @@
         currentIterateItem: currentItem,
     };
 
-    $: data = (() => {
-        if (iteratorDataSource?.type === "provider") {
-            return iteratorDataSource.value?.rows;
-        } else if (iteratorDataSource?.type === "table") {
-            const datasourceId = iteratorDataSource.tableId;
-            console.log(API);
-            return iteratorDataSource;
+    $: (async () => {
+        switch (iteratorDataSource?.type) {
+            case "provider":
+                data = iteratorDataSource.value?.rows;
+                break;
+            case "table":
+                data = await API.fetchTableData(iteratorDataSource.tableId);
+                break;
+            case "query":
+                const result = await API.executeQuery(iteratorDataSource?._id);
+                data = result?.data;
+                break;
+            default:
+                data = iteratorDataSource?.data;
         }
-        return iteratorDataSource?.data;
     })();
 
     function indexChanged(index) {
