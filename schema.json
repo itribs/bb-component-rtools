@@ -146,32 +146,9 @@
             "label": "Index"
           },
           {
-            "type": "select",
-            "key": "iteratorSource",
-            "label": "Source",
-            "options": [
-              { "label": "Data Provider", "value": "dataProvider" },
-              { "label": "Data Source", "value": "dataSource" }
-            ],
-            "defaultValue": "dataSource"
-          },
-          {
-            "type": "dataProvider",
-            "key": "iteratorDataProvider",
-            "label": "Data Provider",
-            "dependsOn": {
-              "setting": "iteratorSource",
-              "value": "dataProvider"
-            }
-          },
-          {
             "type": "dataSource",
             "key": "iteratorDataSource",
-            "label": "Data Source",
-            "dependsOn": {
-              "setting": "iteratorSource",
-              "value": "dataSource"
-            }
+            "label": "Data Source"
           },
           {
             "type": "event",
@@ -207,7 +184,8 @@
           {
             "type": "number",
             "key": "pollerInterval",
-            "label": "Interval (in seconds)"
+            "label": "Interval (in millisecond)",
+            "defaultValue": 1000
           },
           {
             "type": "event",

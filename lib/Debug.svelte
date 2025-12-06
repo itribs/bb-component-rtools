@@ -6,7 +6,6 @@
     export let showDebugInProd;
     export let debugItems;
     export let debugInfos;
-    export let errMsg;
 
     function stringifyAny(obj, options = {}) {
         const {

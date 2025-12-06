@@ -1,7 +1,6 @@
 <script>
-    import { getContext, onDestroy } from "svelte";
-    const { styleable, builderStore } = getContext("sdk");
-    const component = getContext("component");
+    import Debug from "../lib/Debug.svelte";
+    import { onDestroy } from "svelte";
 
     export let showDebugInProd;
     export let pollerSeed;
@@ -19,39 +18,35 @@
         if (pollerSeed && pollerInterval > 0) {
             intervalId = setInterval(() => {
                 pollerTrigger?.();
-            }, pollerInterval * 1000);
+            }, pollerInterval);
         }
     }
+
+    $: debugItems = (() => {
+        const items = [];
+        if (pollerSeed) {
+            items.push({
+                label: "Current Seed",
+                value: pollerSeed,
+            });
+        } else {
+            items.push({
+                message: "Please set the seed",
+            });
+        }
+        return items;
+    })();
 
     onDestroy(() => {
         clear();
     });
 </script>
 
-{#if $builderStore.inBuilder || showDebugInProd}
-    <div use:styleable={$component.styles}>
-        <h3>Current Seed</h3>
-        <div class="value">
-            {pollerSeed ?? ""}
-        </div>
-        <p>When the seed is updated and has a value, restart polling.</p>
-        <p>when it has no value, stop polling.</p>
-        {#if !showDebugInProd}
-            <p>
-                <i class="ph ph-info" /> This message will not be displayed in the
-                production environment.
-            </p>
-        {/if}
-    </div>
-{/if}
-
-<style>
-    .value {
-        max-height: 100px;
-        overflow-y: auto;
-        background: #eee;
-        border-radius: 8px;
-        padding: 10px;
-        border: 1px solid #e0e0e0;
-    }
-</style>
+<Debug
+    {showDebugInProd}
+    {debugItems}
+    debugInfos={[
+        "When the seed is updated and has a value, restart polling.",
+        "When it has no value, stop polling.",
+    ]}
+/>
