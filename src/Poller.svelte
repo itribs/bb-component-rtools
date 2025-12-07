@@ -24,7 +24,11 @@
 
     $: debugItems = (() => {
         const items = [];
-        if (pollerSeed) {
+        if (
+            pollerSeed != null &&
+            pollerSeed !== "" &&
+            !Number.isNaN(pollerSeed)
+        ) {
             items.push({
                 label: "Current Seed",
                 value: pollerSeed,

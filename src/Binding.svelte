@@ -12,7 +12,11 @@
 
     $: debugItems = (() => {
         const items = [];
-        if (bindingValue) {
+        if (
+            bindingValue != null &&
+            bindingValue !== "" &&
+            !Number.isNaN(bindingValue)
+        ) {
             items.push({
                 label: "Current Value",
                 value: bindingValue,
