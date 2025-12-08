@@ -129,6 +129,17 @@
             "key": "bindingValue",
             "label": "Value",
             "placeholder": "Value of the binding"
+          },
+          {
+            "type": "event",
+            "key": "bindingChange",
+            "label": "On Change",
+            "context": [
+              {
+                "label": "Binding Value",
+                "key": "bindingValue"
+              }
+            ]
           }
         ]
       },

@@ -5,10 +5,13 @@
 
     export let showDebugInProd;
     export let bindingValue;
+    export let bindingChange;
 
     $: dataContext = {
         bindingValue,
     };
+
+    $: bindingChange?.({ bindingValue });
 
     $: debugItems = (() => {
         const items = [];
