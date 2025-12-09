@@ -7,11 +7,20 @@
     export let bindingValue;
     export let bindingChange;
 
+    let oldValue;
+    let hasInitialized = false;
+
     $: dataContext = {
         bindingValue,
     };
 
-    $: bindingChange?.({ bindingValue });
+    $: {
+        if (hasInitialized && bindingValue !== oldValue) {
+            bindingChange?.({ bindingValue });
+        }
+        oldValue = bindingValue;
+        hasInitialized = true;
+    }
 
     $: debugItems = (() => {
         const items = [];
