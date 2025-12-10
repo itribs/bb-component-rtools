@@ -140,6 +140,37 @@
                 "key": "bindingValue"
               }
             ]
+          },
+          {
+            "type": "select",
+            "label": "Change Mode",
+            "key": "bindingChangeMode",
+            "options": [
+              {
+                "label": "None",
+                "value": "none"
+              },
+              {
+                "label": "Debounce",
+                "value": "debounce"
+              },
+              {
+                "label": "Throttle",
+                "value": "throttle"
+              }
+            ],
+            "defaultValue": "none"
+          },
+          {
+            "type": "number",
+            "key": "bindingChangeDelay",
+            "label": "Delay (in millisecond)",
+            "defaultValue": 300,
+            "dependsOn": {
+              "setting": "bindingChangeMode",
+              "value": "none",
+              "invert": true
+            }
           }
         ]
       },
