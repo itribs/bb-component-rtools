@@ -45,7 +45,7 @@
     };
 
     $: dataContext = {
-        activeTabValue,
+        activeValue,
     };
 
     setContext("tabs", {
