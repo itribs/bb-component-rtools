@@ -23,22 +23,12 @@
     }
 
     $: debugItems = (() => {
-        const items = [];
-        if (
-            pollerSeed != null &&
-            pollerSeed !== "" &&
-            !Number.isNaN(pollerSeed)
-        ) {
-            items.push({
+        return [
+            {
                 label: "Current Seed",
                 value: pollerSeed,
-            });
-        } else {
-            items.push({
-                message: "Please set the seed",
-            });
-        }
-        return items;
+            },
+        ];
     })();
 
     onDestroy(() => {

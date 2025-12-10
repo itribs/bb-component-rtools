@@ -42,22 +42,12 @@
     }
 
     $: debugItems = (() => {
-        const items = [];
-        if (
-            bindingValue != null &&
-            bindingValue !== "" &&
-            !Number.isNaN(bindingValue)
-        ) {
-            items.push({
+        return [
+            {
                 label: "Current Value",
                 value: bindingValue,
-            });
-        } else {
-            items.push({
-                message: "Please set a value",
-            });
-        }
-        return items;
+            },
+        ];
     })();
 
     onDestroy(() => {

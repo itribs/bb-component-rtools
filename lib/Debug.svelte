@@ -109,7 +109,10 @@
         {#each debugItems || [] as item}
             {#if item.label}
                 <h3>{item.label}</h3>
-                <pre class="value">{stringifyAny(item.value)}</pre>
+                <pre class="value">{item.value !== null &&
+                    item.value !== undefined
+                        ? stringifyAny(item.value)
+                        : ""}</pre>
             {:else}
                 <p class="error">{item.message}</p>
             {/if}
@@ -136,6 +139,7 @@
     }
     .value {
         max-height: 100px;
+        min-height: 40px;
         overflow-y: auto;
         background: #eee;
         border-radius: 8px;
