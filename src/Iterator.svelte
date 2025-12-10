@@ -82,7 +82,7 @@
             if (isIndexable(data)) {
                 items.push({
                     label: "Current Value",
-                    value: data[currentIndex],
+                    value: currentItem,
                 });
             } else {
                 items.push({
