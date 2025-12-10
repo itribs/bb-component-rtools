@@ -221,7 +221,7 @@
         "values": [
           {
             "label": "Active Tab Value",
-            "key": "activeTabValue",
+            "key": "activeValue",
             "type": "string"
           }
         ]

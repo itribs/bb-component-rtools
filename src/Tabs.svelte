@@ -45,7 +45,7 @@
     };
 
     $: dataContext = {
-        activeValue,
+        activeValue: $activeValue,
     };
 
     setContext("tabs", {
@@ -57,31 +57,30 @@
 </script>
 
 <div use:styleable={$component.styles}>
-    <Provider data={dataContext}>
-        {#if $tabs.length > 0}
-            <div
-                class="tabs-list"
-                style="--tab-color: {tabColor}; --tab-active-color: {activeTabColor}; --tabs-align:{tabsAlign}"
-            >
-                {#each $tabs as tab}
-                    <button
-                        class="tabs-tab {$activeValue === tab.value
-                            ? 'is-active'
-                            : ''}"
-                        on:click={() => select(tab.value)}
-                    >
-                        {#if tab.icon}
-                            <i class="ph ph-{tab.icon}"></i>
-                        {/if}
-                        {tab.label}
-                    </button>
-                {/each}
-            </div>
-        {:else}
-            Please add Tab Container components to define tabs.
-        {/if}
-        <slot />
-    </Provider>
+    <Provider data={dataContext}></Provider>
+    {#if $tabs.length > 0}
+        <div
+            class="tabs-list"
+            style="--tab-color: {tabColor}; --tab-active-color: {activeTabColor}; --tabs-align:{tabsAlign}"
+        >
+            {#each $tabs as tab}
+                <button
+                    class="tabs-tab {$activeValue === tab.value
+                        ? 'is-active'
+                        : ''}"
+                    on:click={() => select(tab.value)}
+                >
+                    {#if tab.icon}
+                        <i class="ph ph-{tab.icon}"></i>
+                    {/if}
+                    {tab.label}
+                </button>
+            {/each}
+        </div>
+    {:else}
+        Please add Tab Container components to define tabs.
+    {/if}
+    <slot />
 </div>
 
 <style>
