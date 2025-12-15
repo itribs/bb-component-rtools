@@ -6,4 +6,5 @@ A Budibase plugin containing multiple components, created because the free versi
 
 - **Binding component** for reusing bindings
 - **Iterator component** for executing sequential tasks
+- **Poller component** for periodic polling
 - **Tabs component**
